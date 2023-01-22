@@ -1,3 +1,9 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer components {
+  .padding-x {
+    @apply px-4 md:px-12 lg:px-16;
+  }
+}

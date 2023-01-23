@@ -6,4 +6,9 @@
   .padding-x {
     @apply px-4 md:px-12 lg:px-16;
   }
+  .custom-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minMax(16rem, 16rem));
+    gap: 4rem;
+  }
 }

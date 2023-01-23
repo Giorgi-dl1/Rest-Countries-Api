@@ -2,39 +2,29 @@ import '../styles/globals.css'
 import type { AppProps } from 'next/app'
 import Layout from '../components/Layout'
 import Router from 'next/router'
-import Loading from '../components/Loading'
-import { useEffect, useState } from 'react'
+import 'nprogress/nprogress.css'
+import NProgress from 'nprogress'
+import { useEffect } from 'react'
 
 function MyApp({ Component, pageProps }: AppProps) {
-  const [loading, setLoading] = useState(false)
   useEffect(() => {
-    const start = () => {
-      console.log('start')
-      setLoading(true)
-    }
-    const end = () => {
-      console.log('finished')
-      setLoading(false)
-    }
-    Router.events.on('routeChangeStart', start)
-    Router.events.on('routeChangeComplete', end)
-    Router.events.on('routeChangeError', end)
+    const handleRouteStart = () => NProgress.start()
+    const handleRouteDone = () => NProgress.done()
+
+    Router.events.on('routeChangeStart', handleRouteStart)
+    Router.events.on('routeChangeComplete', handleRouteDone)
+    Router.events.on('routeChangeError', handleRouteDone)
+
     return () => {
-      Router.events.off('routeChangeStart', start)
-      Router.events.off('routeChangeComplete', end)
-      Router.events.off('routeChangeError', end)
+      Router.events.off('routeChangeStart', handleRouteStart)
+      Router.events.off('routeChangeComplete', handleRouteDone)
+      Router.events.off('routeChangeError', handleRouteDone)
     }
   }, [])
   return (
-    <>
-      {loading ? (
-        <Loading />
-      ) : (
-        <Layout>
-          <Component {...pageProps} />
-        </Layout>
-      )}
-    </>
+    <Layout>
+      <Component {...pageProps} />
+    </Layout>
   )
 }
 

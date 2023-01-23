@@ -4,12 +4,11 @@ import Form from '../../../components/Form'
 import { Home } from '../../../interfaces'
 
 const index = ({ countries }: Home) => {
-  console.log(countries)
   const router = useRouter()
   const { region } = router.query
   return (
     <div className="min-h-screen">
-      <Form activeRegion={region} />
+      <Form activeRegion={region?.toString()} />
       <div className="justify-center md:justify-between custom-grid">
         {countries.map((country) => (
           <Country key={country.name.common} country={country} />

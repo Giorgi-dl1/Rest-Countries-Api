@@ -6,21 +6,21 @@ const Form = () => {
   const [showRegions, setShowRegions] = useState(false)
   const regions = ['Africa', 'America', 'Asia', 'Europe', 'Oceania']
   return (
-    <div className="flex flex-col justify-between py-6 dark:text-dark-text md:py-10 md:flex-row">
+    <div className="flex flex-col gap-6 py-6 md:justify-between dark:text-dark-text md:py-10 md:flex-row">
       <form>
         <div className="relative">
           <BsSearch className="absolute left-6 top-[50%] -translate-y-[50%] text-[gray]" />
           <input
             type="text"
             placeholder="Search for a country..."
-            className="py-3 rounded-sm pl-14 w-[400px] max-w-full shadow-md dark:bg-dark-elements  border-none outline-none"
+            className="py-3 transition duration-300 rounded-sm pl-14 w-[400px] max-w-full shadow-md dark:bg-dark-elements  border-none outline-none"
           />
         </div>
       </form>
-      <div className="relative">
+      <div className="relative max-w-[170px]">
         <div
           onClick={() => setShowRegions(!showRegions)}
-          className="flex items-center gap-2 px-4 py-3 rounded-md shadow-md cursor-pointer bg-light-elements dark:bg-dark-elements"
+          className="flex items-center gap-2 px-4 py-3 transition duration-300 rounded-md shadow-md cursor-pointer bg-light-elements dark:bg-dark-elements"
         >
           <span>Filter by Region</span>
           <span>

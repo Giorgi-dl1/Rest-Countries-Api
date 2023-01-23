@@ -11,7 +11,9 @@ const Layout = ({ children }: Layout) => {
   return (
     <div className={`${dark ? 'dark' : ''}`}>
       <Header toggleDark={toggleDark} />
-      <main className="bg-light-bg dark:bg-dark-bg padding-x">{children}</main>
+      <main className="transition duration-300 bg-light-bg dark:bg-dark-bg padding-x">
+        {children}
+      </main>
     </div>
   )
 }

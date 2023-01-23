@@ -1,10 +1,30 @@
-import { useState } from 'react'
+import Link from 'next/link'
+import { useEffect, useRef, useState } from 'react'
 import { BsSearch } from 'react-icons/bs'
 import { IoIosArrowDown } from 'react-icons/io'
+import { Form } from '../interfaces'
 
-const Form = () => {
+const Form = ({ activeRegion }: Form) => {
   const [showRegions, setShowRegions] = useState(false)
+  const dropDownRef = useRef<HTMLInputElement>(null)
   const regions = ['Africa', 'America', 'Asia', 'Europe', 'Oceania']
+
+  useEffect(() => {
+    function handleClickOutside(event: any) {
+      if (
+        dropDownRef.current &&
+        !dropDownRef?.current.contains(event.target) &&
+        !event.target.classList.contains('dropdown-label')
+      ) {
+        setShowRegions(false)
+      }
+    }
+    document.addEventListener('mousedown', handleClickOutside)
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside)
+    }
+  }, [dropDownRef])
+
   return (
     <div className="flex flex-col gap-6 py-6 md:justify-between dark:text-dark-text md:py-10 md:flex-row">
       <form>
@@ -17,13 +37,15 @@ const Form = () => {
           />
         </div>
       </form>
-      <div className="relative max-w-[170px]">
+      <div className="relative w-[170px]">
         <div
           onClick={() => setShowRegions(!showRegions)}
-          className="flex items-center gap-2 px-4 py-3 transition duration-300 rounded-md shadow-md cursor-pointer bg-light-elements dark:bg-dark-elements"
+          className="flex items-center justify-between gap-2 px-4 py-3 transition duration-300 rounded-md shadow-md cursor-pointer dropdown-label bg-light-elements dark:bg-dark-elements"
         >
-          <span>Filter by Region</span>
-          <span>
+          <span className="dropdown-label">
+            {activeRegion ? activeRegion : 'Filter by Region'}
+          </span>
+          <span className="dropdown-label">
             <IoIosArrowDown
               className={`transition duration-300 ${
                 showRegions ? 'rotate-180' : ''
@@ -32,17 +54,21 @@ const Form = () => {
           </span>
         </div>
         <div
+          ref={dropDownRef}
           className={`absolute z-10 w-full scale-75 opacity-0 transition duration-300 rounded-md shadow-md top-14 ${
             showRegions ? '!opacity-100 scale-100' : ''
           }`}
         >
           {regions.map((region) => (
-            <div
-              key={region}
-              className="px-4 py-1 bg-light-elements dark:bg-dark-elements"
-            >
-              {region}
-            </div>
+            <Link href={`/region/${region}`} key={region}>
+              <div
+                className={`px-4 py-1 ${
+                  activeRegion === region && '!bg-[#d9d9d9] dark:!bg-dark-bg'
+                } hover:bg-[#d9d9d9] dark:hover:bg-dark-bg transition duration-300 bg-light-elements dark:bg-dark-elements`}
+              >
+                {region}
+              </div>
+            </Link>
           ))}
         </div>
       </div>

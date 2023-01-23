@@ -7,9 +7,9 @@ const Home = ({ countries }: Home) => {
   return (
     <div>
       <Form />
-      <div className="justify-center  md:justify-between custom-grid">
+      <div className="justify-center md:justify-between custom-grid">
         {countries.map((country) => (
-          <Country country={country} />
+          <Country key={country.name.common} country={country} />
         ))}
       </div>
     </div>

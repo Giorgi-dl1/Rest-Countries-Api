@@ -1,8 +1,20 @@
 import React from 'react'
 
+export type currencies = {
+  [key: string]: {
+    name: string
+    symbol: string
+  }
+}
+
+export type languages = {
+  [key: string]: string
+}
+
 export type country = {
   name: {
     common: string
+    nativeName: any[]
   }
   nativeName: string
   subregion: string
@@ -11,12 +23,10 @@ export type country = {
   population: number
   capital: string
   alpha3Code: string
-  currencies: {
-    name: string
-  }[]
-  languages: {
-    name: string
-  }[]
+  borders: string[]
+  tld: string[]
+  currencies: currencies
+  languages: languages
   flags: {
     svg: string
   }

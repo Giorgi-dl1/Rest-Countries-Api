@@ -11,4 +11,7 @@
     grid-template-columns: repeat(auto-fit, minMax(16rem, 16rem));
     gap: 4rem;
   }
+  .custom-shadow {
+    box-shadow: 1px 1px 5px hsla(0, 0%, 0%, 0.4);
+  }
 }

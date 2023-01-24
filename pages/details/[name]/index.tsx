@@ -8,7 +8,11 @@ const index = ({ country }: { country: country }) => {
   const router = useRouter()
   const redirect: string | undefined | string[] = router.query.redirect
 
-  const nativeName = Object?.values(country?.name?.nativeName)[0].common
+  const nativeName = country?.name?.nativeName
+    ? Object?.values(country?.name?.nativeName)[0].common
+    : country.name.common
+    ? country.name.common
+    : 'Not found'
 
   const currenciesString = country.currencies
     ? getCurrenciesString(country.currencies)

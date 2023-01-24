@@ -4,11 +4,12 @@ import { getCurrenciesString, getLanguagesString } from '../../../utils'
 import { useRouter } from 'next/router'
 import Link from 'next/link'
 import Image from 'next/image'
+import Head from 'next/head'
 const index = ({ country }: { country: country }) => {
   const router = useRouter()
-  const redirect: string | undefined | string[] = router.query.redirect
 
-  console.log(country)
+  const redirect: string | undefined | string[] = router.query.redirect
+  const { name } = router.query
 
   const nativeName = country?.name?.nativeName
     ? Object?.values(country?.name?.nativeName)[0].common
@@ -26,6 +27,9 @@ const index = ({ country }: { country: country }) => {
 
   return (
     <div className="max-w-[1550px] lg:mx-auto">
+      <Head>
+        <title>{name}</title>
+      </Head>
       <div className="mt-10 mb-16 text-sm md:text-base md:my-20 max-w-max">
         <Link href={redirect ? redirect.toString() : '/'}>
           <div className="flex items-center gap-3 px-8 py-2 rounded bg-light-elements custom-shadow max-w-max dark:bg-dark-elements">

@@ -1,3 +1,4 @@
+import Head from 'next/head'
 import { useRouter } from 'next/router'
 import CountryList from '../../../components/CountryList'
 import { Home } from '../../../interfaces'
@@ -5,7 +6,14 @@ import { Home } from '../../../interfaces'
 const index = ({ countries }: Home) => {
   const router = useRouter()
   const { region } = router.query
-  return <CountryList countries={countries} region={region?.toString()} />
+  return (
+    <>
+      <Head>
+        <title>{region}</title>
+      </Head>
+      <CountryList countries={countries} region={region?.toString()} />
+    </>
+  )
 }
 
 export default index

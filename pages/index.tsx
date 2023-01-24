@@ -1,8 +1,16 @@
+import Head from 'next/head'
 import CountryList from '../components/CountryList'
 import { Home } from '../interfaces'
 
 const Home = ({ countries }: Home) => {
-  return <CountryList countries={countries} />
+  return (
+    <>
+      <Head>
+        <title>Rest Countries Api</title>
+      </Head>
+      <CountryList countries={countries} />
+    </>
+  )
 }
 
 export default Home

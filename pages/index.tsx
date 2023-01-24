@@ -1,19 +1,8 @@
-import Country from '../components/Country'
-import Form from '../components/Form'
+import CountryList from '../components/CountryList'
 import { Home } from '../interfaces'
 
 const Home = ({ countries }: Home) => {
-  console.log(countries)
-  return (
-    <div>
-      <Form />
-      <div className="justify-center md:justify-between custom-grid">
-        {countries.map((country) => (
-          <Country key={country.name.common} country={country} />
-        ))}
-      </div>
-    </div>
-  )
+  return <CountryList countries={countries} />
 }
 
 export default Home

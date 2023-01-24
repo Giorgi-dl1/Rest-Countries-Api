@@ -1,21 +1,11 @@
 import { useRouter } from 'next/router'
-import Country from '../../../components/Country'
-import Form from '../../../components/Form'
+import CountryList from '../../../components/CountryList'
 import { Home } from '../../../interfaces'
 
 const index = ({ countries }: Home) => {
   const router = useRouter()
   const { region } = router.query
-  return (
-    <div className="min-h-screen">
-      <Form activeRegion={region?.toString()} />
-      <div className="justify-center md:justify-between custom-grid">
-        {countries.map((country) => (
-          <Country key={country.name.common} country={country} />
-        ))}
-      </div>
-    </div>
-  )
+  return <CountryList countries={countries} region={region?.toString()} />
 }
 
 export default index

@@ -1,11 +1,16 @@
 import Link from 'next/link'
-import { useEffect, useRef, useState } from 'react'
+import { useRouter } from 'next/router'
+import { FormEvent, useEffect, useRef, useState } from 'react'
 import { BsSearch } from 'react-icons/bs'
 import { IoIosArrowDown } from 'react-icons/io'
 import { Form } from '../interfaces'
 
 const Form = ({ activeRegion }: Form) => {
   const [showRegions, setShowRegions] = useState(false)
+  const inputRef = useRef<HTMLInputElement>(null)
+
+  const router = useRouter()
+
   const dropDownRef = useRef<HTMLInputElement>(null)
   const regions = ['Africa', 'America', 'Asia', 'Europe', 'Oceania']
 
@@ -25,13 +30,26 @@ const Form = ({ activeRegion }: Form) => {
     }
   }, [dropDownRef])
 
+  const submitHandler = (e: FormEvent) => {
+    e.preventDefault()
+    if (inputRef.current) {
+      const name = inputRef?.current?.value
+      if (name.length) {
+        router.push(`/name/${name}`)
+      } else {
+        router.push('/')
+      }
+    }
+  }
+
   return (
     <div className="flex flex-col gap-6 py-6 md:justify-between dark:text-dark-text md:py-10 md:flex-row">
-      <form>
+      <form onSubmit={(e) => submitHandler(e)}>
         <div className="relative">
           <BsSearch className="absolute left-6 top-[50%] -translate-y-[50%] text-[gray]" />
           <input
             type="text"
+            ref={inputRef}
             placeholder="Search for a country..."
             className="py-3 transition duration-300 rounded-sm pl-14 w-[400px] max-w-full shadow-md dark:bg-dark-elements  border-none outline-none"
           />
@@ -55,13 +73,14 @@ const Form = ({ activeRegion }: Form) => {
         </div>
         <div
           ref={dropDownRef}
-          className={`absolute z-10 w-full scale-75 opacity-0 transition duration-300 rounded-md shadow-md top-14 ${
+          className={`absolute z-10 w-full scale-75 opacity-0 transition duration-300 overflow-hidden rounded-md shadow-lg top-14 ${
             showRegions ? '!opacity-100 scale-100' : ''
           }`}
         >
           {regions.map((region) => (
             <Link href={`/region/${region}`} key={region}>
               <div
+                onClick={() => setShowRegions(false)}
                 className={`px-4 py-1 ${
                   activeRegion === region && '!bg-[#d9d9d9] dark:!bg-dark-bg'
                 } hover:bg-[#d9d9d9] dark:hover:bg-dark-bg transition duration-300 bg-light-elements dark:bg-dark-elements`}

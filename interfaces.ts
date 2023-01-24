@@ -1,6 +1,6 @@
 import React from 'react'
 
-type country = {
+export type country = {
   name: {
     common: string
   }
@@ -35,9 +35,15 @@ export interface Layout {
 }
 
 export interface Header {
+  dark: boolean
   toggleDark: () => void
 }
 
 export interface Form {
   activeRegion?: string
+}
+
+export interface CountryList {
+  region?: string
+  countries: country[]
 }

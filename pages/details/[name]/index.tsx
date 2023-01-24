@@ -8,6 +8,8 @@ const index = ({ country }: { country: country }) => {
   const router = useRouter()
   const redirect: string | undefined | string[] = router.query.redirect
 
+  console.log(country)
+
   const nativeName = country?.name?.nativeName
     ? Object?.values(country?.name?.nativeName)[0].common
     : country.name.common
@@ -67,7 +69,8 @@ const index = ({ country }: { country: country }) => {
             </div>
             <div className="space-y-1 md:space-y-2 lg:space-y-3">
               <p>
-                <strong>Top Level Domain: </strong> {country?.tld[0]}
+                <strong>Top Level Domain: </strong>{' '}
+                {country.tld ? country.tld[0] : 'Not found'}
               </p>
               <p>
                 <strong>Currencies: </strong> {currenciesString}
